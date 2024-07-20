@@ -44,7 +44,7 @@ function createList(teamObjects){
             <h2>${team.name}</h2>
             <p><strong>Country:</strong> ${team.country}</p>
             <p><strong>Founded:</strong> ${team.founded}</p>
-            <a href="./teampage/index.html?id=${team.id}" class="button-link">
+            <a href="../teampage/index.html?id=${team.id}" class="button-link">
             <button class="button">Verify Transfer</button>
             </a>
         `;

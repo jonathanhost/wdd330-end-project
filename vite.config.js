@@ -9,7 +9,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "src/index.html",  ),
         teampage: resolve(__dirname, "src/teampage/index.html"),
-        teamlist: resolve(__dirname, "src/teamlist/index.html"),
+        transfers: resolve(__dirname, "src/transfers/index.html"),
+        contact: resolve(__dirname, "src/contact/index.html"),
       },
     },
   },

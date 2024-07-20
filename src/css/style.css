@@ -353,3 +353,10 @@ button:hover {
   text-align: center;
   padding-bottom: 2%;
 }
+
+.contact-datails{
+  text-align: center;
+  margin: 0 auto;
+  color: #e7e1e1;
+  padding-bottom: 3%;
+}

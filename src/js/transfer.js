@@ -1,5 +1,6 @@
 
 export default function loadtransfer(teamId){
+   console.log('entrando')
     fetch(`https://v3.football.api-sports.io/transfers?team=${teamId}`, {
         method: "GET",
         headers: {
@@ -21,6 +22,7 @@ export default function loadtransfer(teamId){
 }
 
 function getTransfersFrom2024(data,teamId) {
+  console.log('entrando')
     let transfers2024 = [];
     data.forEach(item => {
       if (item.transfers) {
@@ -40,6 +42,7 @@ function getTransfersFrom2024(data,teamId) {
 
 
   function createList(teamObjects,teamId){
+    console.log('entrando')
     const teamsContainer = document.getElementById('transfer-list');
     teamObjects.forEach(player => {
       const playerDiv = document.createElement('div');
