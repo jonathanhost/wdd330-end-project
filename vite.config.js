@@ -7,10 +7,9 @@ export default defineConfig({
     outDir: "../dist",
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "src/index.html",
-     
-        ),
-  
+        main: resolve(__dirname, "src/index.html",  ),
+        teampage: resolve(__dirname, "src/teampage/index.html"),
+        teamlist: resolve(__dirname, "src/teamlist/index.html"),
       },
     },
   },

@@ -16,7 +16,6 @@ export default async function loadPlayers(playerId) {
     };
     player_list.push(player)
 
-    console.log(player_list)
     return player
 
 }

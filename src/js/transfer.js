@@ -1,37 +1,69 @@
-import returnData from './main.js'
-import loadPlayers from './players.js'
 
-export default async function listTransfer() {
-    const url = 'https://transfermarkt-db.p.rapidapi.com/v1/transfers/list?page_number=0&top_transfers_first=true&locale=DE';
-    const transfer_list = await returnData(url);
+export default function loadtransfer(teamId){
+    fetch(`https://v3.football.api-sports.io/transfers?team=${teamId}`, {
+        method: "GET",
+        headers: {
+            "x-rapidapi-host": "v3.football.api-sports.io",
+            "x-rapidapi-key": "0b8423ed61b5f4dc2d046bea90fdaf81"
+        }
+    })
+    .then(response => response.json())
+.then(data => {
+    const teams = data.response; 
+    getTransfersFrom2024(teams,teamId)
 
-   
-    console.log(transfer_list)
-    listrender(transfer_list.data);
+})
+.catch(err => {
+    console.log(err);
+});
+
+
 }
 
-function chunkArray(array, chunkSize) {
-    const chunks = [];
-    for (let i = 0; i < array.length; i += chunkSize) {
-      chunks.push(array.slice(i, i + chunkSize));
-    }
-    return chunks;
-  }
-  
-  function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-  
-  async function listrender(transfer_list) {
-    const chunkedLists = chunkArray(transfer_list, 2); 
-  
-    for (const chunk of chunkedLists) {
-      chunk.forEach(item => {
-        loadPlayers(item.playerID);
-      });
-      await delay(1000); 
-    }
+function getTransfersFrom2024(data,teamId) {
+    let transfers2024 = [];
+    data.forEach(item => {
+      if (item.transfers) {
+        const playerName = item.player.name;
+        const transfers = item.transfers.filter(transfer => {
+          const year = new Date(transfer.date).getFullYear();
+          return year === 2024;
+        }).map(transfer => {
+          return { ...transfer, playerName };
+        });
+        transfers2024 = transfers2024.concat(transfers);
+      }
+    });
+    createList(transfers2024,teamId);
   }
   
 
-listTransfer();
+
+  function createList(teamObjects,teamId){
+    const teamsContainer = document.getElementById('transfer-list');
+    teamObjects.forEach(player => {
+      const playerDiv = document.createElement('div');
+        if (player.teams.in.id == teamId){
+  
+          playerDiv.className = 'transfer-item transfer-in';
+        }
+        else{
+          playerDiv.className = 'transfer-item transfer-out';
+        }
+          
+          playerDiv.innerHTML = `
+               <img src="${player.teams.out.logo}" alt="${player.teams.out.name}" class="team-logo">
+               <span class="out-team-name">${player.teams.out.name}</span>
+              <div class="details">
+                  <span class="player-name">${player.playerName}</span>
+                  <span class="transfer-date">Data: ${player.date}</span>
+              </div>
+              <span class="arrow">→</span>
+              <span class="in-team-name">${player.teams.in.name}</span>
+              <img src="${player.teams.in.logo}" alt="${player.teams.in.logo}" class="team-logo">
+          `;
+          teamsContainer.appendChild(playerDiv);
+
+        }
+      )
+    }
