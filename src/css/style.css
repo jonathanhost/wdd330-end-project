@@ -111,6 +111,7 @@ nav img {
   font-weight: bold;
   text-align: center;
   text-shadow: 2px 2px 4px rgba(17, 3, 54, 0.749);
+  
 }
 
 .button-transfer button {
@@ -359,4 +360,35 @@ button:hover {
   margin: 0 auto;
   color: #e7e1e1;
   padding-bottom: 3%;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+
+form input{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+color: #110f0f;
+padding: 0.5% 10%;
+margin-bottom: 1%;
+ 
+}
+form label{
+  color: #e7e1e1;
+}
+form button {
+width: 30%;}
+
+
+input:invalid {
+  border: 2px solid red;
+}
+
+input:valid {
+  border: 2px solid green;
 }
